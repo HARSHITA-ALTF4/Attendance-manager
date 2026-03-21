@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Grades{% endblock %}
+
+{% block content %}
+<div class="card p-4 shadow-sm border-0" style="border-radius:12px; background: rgba(255,255,255,0.85); backdrop-filter: blur(10px);">
+    <h2 class="mb-4" style="font-weight:800; color:#1e293b;">Grades Management</h2>
+
+    <form method="GET" action="{{ url_for('grades') }}" class="mb-4 d-flex gap-2">
+        <select name="subject_id" class="form-select" style="max-width: 400px;">
+            <option value="">-- Select Subject --</option>
+            {% for sub in subjects %}
+                <option value="{{ sub.subject_id }}" 
+                    {% if selected_subject_id == sub.subject_id %}selected{% endif %}>
+                    {{ sub.subject_code }} - {{ sub.subject_name }}
+                </option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn btn-primary px-4 fw-bold">Load Students</button>
+    </form>
+
+    {% if selected_subject_id %}
+        {% if subject_label %}
+            <h5 class="text-primary mb-3">{{ subject_label }}</h5>
+        {% endif %}
+
+        <form method="POST" action="{{ url_for('grades') }}">
+            <input type="hidden" name="subject_id" value="{{ selected_subject_id }}">
+
+            <div class="table-responsive bg-white rounded-3 shadow-sm mb-4 border">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Roll No</th>
+                            <th>Student Name</th>
+                            <th style="width: 150px;">Marks</th>
+                            <th style="width: 150px;">Grade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for st in roster %}
+                            <tr>
+                                <td class="fw-bold">{{ st.roll_no }}</td>
+                                <td>{{ st.full_name }}</td>
+                                <td>
+                                    <input type="number" step="0.01" name="marks_{{ st.student_id }}" 
+                                           class="form-control form-control-sm" 
+                                           value="{{ st.marks if st.marks != None else '' }}" 
+                                           placeholder="Marks">
+                                </td>
+                                <td>
+                                    <input type="text" name="grade_{{ st.student_id }}" 
+                                           class="form-control form-control-sm" 
+                                           value="{{ st.grade if st.grade != None else '' }}" 
+                                           placeholder="e.g. A, B+">
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4" class="text-center text-muted">No students found.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-success fw-bold px-4 py-2" style="border-radius:8px;">
+                    Save Grades
+                </button>
+            </div>
+            
+            <p class="text-muted mt-2 small text-end">
+                <em>Note: Empty marks and grades will delete any existing record.</em>
+            </p>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}

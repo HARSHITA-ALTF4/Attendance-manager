@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row g-4">
+  
+  <div class="col-md-4">
+    <div class="pro-card">
+      <h5 class="mb-3 fw-bold">Add Student (SY-A 2025-26)</h5>
+
+      <form method="post">
+        <div class="mb-3">
+          <label class="form-label">Roll No</label>
+          <input class="form-control" name="roll_no" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Full Name</label>
+          <input class="form-control" name="full_name" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Email (optional)</label>
+          <input class="form-control" name="email">
+        </div>
+
+        <button class="btn btn-primary w-100">Add Student</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="col-md-8">
+    <div class="pro-card">
+      <h5 class="mb-3 fw-bold">Students List</h5>
+
+      <table class="table table-sm align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Roll</th>
+            <th>Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for s in students %}
+          <tr>
+            <td>{{ s.roll_no }}</td>
+            <td>{{ s.full_name }}</td>
+            <td>{{ s.email or "-" }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

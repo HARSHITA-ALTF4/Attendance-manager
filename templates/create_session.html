@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="grid-2">
+  <!-- LEFT: Create form -->
+  <div class="card">
+    <h2>Create Attendance Session</h2>
+    <p class="muted">Choose subject, date and time, then click create.</p>
+
+    <form method="POST" class="mt-3">
+      <label>Subject</label>
+      <select name="class_subject_id" class="form-select" required>
+        <option value="" selected disabled>Select subject</option>
+        {% for cs in class_subjects %}
+          <option value="{{ cs.class_subject_id }}">
+            {{ cs.subject_code }} - {{ cs.subject_name }} ({{ cs.teacher_name }})
+          </option>
+        {% endfor %}
+      </select>
+
+      <div class="grid-2-sm mt-3">
+        <div>
+          <label>Date</label>
+          <input type="date" name="session_date" class="form-control" required>
+        </div>
+
+        <div>
+          <label>Start Time (optional)</label>
+          <input type="time" name="start_time" class="form-control">
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primary w-100 mt-3">Create Session</button>
+
+      <p class="muted mt-2" style="margin-bottom:0;">Tip: keep time empty if not needed.</p>
+    </form>
+  </div>
+
+  <!-- RIGHT: Recent sessions -->
+  <div class="card">
+    <h2>Recent Sessions</h2>
+    <p class="muted">Your latest created lectures.</p>
+
+    {% if recent and recent|length > 0 %}
+      <table class="mt-2">
+        <thead>
+          <tr>
+            <th style="width:70px;">ID</th>
+            <th>Subject</th>
+            <th style="width:140px;">Date</th>
+            <th style="width:120px;">Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in recent %}
+            <tr>
+              <td>{{ row.session_id }}</td>
+              <td>{{ row.subject_name }}</td>
+              <td>{{ row.session_date }}</td>
+              <td>{{ row.start_time if row.start_time else "-" }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="muted" style="margin:0;">No sessions yet. Create your first one.</p>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

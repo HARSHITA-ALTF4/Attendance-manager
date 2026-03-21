@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card mb-3">
+  <div class="card-body">
+    <h5>Defaulters Report (Attendance &lt; 75%)</h5>
+    <form method="get" class="row g-2 align-items-end mt-2">
+      <div class="col-md-8">
+        <select name="subject_id" class="form-select" required>
+          <option value="">-- choose subject --</option>
+          {% for s in subjects %}
+            <option value="{{ s.subject_id }}" {% if chosen_subject and chosen_subject.subject_id == s.subject_id %}selected{% endif %}>
+              {{ s.subject_code }} - {{ s.subject_name }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-primary w-100">Show Defaulters</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% if chosen_subject %}
+<div class="card">
+  <div class="card-body">
+    <h6>Subject: {{ chosen_subject.subject_code }} - {{ chosen_subject.subject_name }}</h6>
+    <table class="table table-sm table-striped mt-3">
+      <thead><tr><th>Roll</th><th>Name</th><th>%</th></tr></thead>
+      <tbody>
+        {% for r in results %}
+          <tr><td>{{ r.roll_no }}</td><td>{{ r.full_name }}</td><td>{{ r.attendance_percent }}</td></tr>
+        {% endfor %}
+        {% if results|length == 0 %}
+          <tr><td colspan="3" class="text-muted">No defaulters found (or no attendance marked yet).</td></tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

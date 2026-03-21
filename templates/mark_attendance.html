@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card mb-3">
+  <div class="card-body">
+    <h5>Select Session</h5>
+    <form method="get" class="row g-2 align-items-end">
+      <div class="col-md-8">
+        <select name="session_id" class="form-select" required>
+          <option value="">-- choose session --</option>
+          {% for s in sessions %}
+            <option value="{{ s.session_id }}" {% if selected_session_id == s.session_id %}selected{% endif %}>
+              {{ s.label }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-primary w-100">Load Students</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% if selected_session_id %}
+<div class="card">
+  <div class="card-body">
+    <h5>Mark Attendance</h5>
+    <div class="text-muted mb-2">Session: {{ session_label }}</div>
+
+    <form method="post">
+      <input type="hidden" name="session_id" value="{{ selected_session_id }}">
+      <table class="table table-sm table-striped">
+        <thead><tr><th>Roll</th><th>Name</th><th>Present</th></tr></thead>
+        <tbody>
+          {% for st in roster %}
+          <tr>
+            <td>{{ st.roll_no }}</td>
+            <td>{{ st.full_name }}</td>
+            <td>
+              <input type="checkbox" name="present" value="{{ st.student_id }}"
+                     {% if st.student_id in already_marked %}checked{% endif %}>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <button class="btn btn-success">Save Attendance</button>
+    </form>
+  </div>
+</div>
+{% endif %}
+{% endblock %}
