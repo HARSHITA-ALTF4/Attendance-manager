@@ -29,21 +29,23 @@
 
     <form method="post">
       <input type="hidden" name="session_id" value="{{ selected_session_id }}">
-      <table class="table table-sm table-striped">
-        <thead><tr><th>Roll</th><th>Name</th><th>Present</th></tr></thead>
-        <tbody>
-          {% for st in roster %}
-          <tr>
-            <td>{{ st.roll_no }}</td>
-            <td>{{ st.full_name }}</td>
-            <td>
-              <input type="checkbox" name="present" value="{{ st.student_id }}"
-                     {% if st.student_id in already_marked %}checked{% endif %}>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table class="table table-sm table-striped">
+          <thead><tr><th>Roll</th><th>Name</th><th>Present</th></tr></thead>
+          <tbody>
+            {% for st in roster %}
+            <tr>
+              <td>{{ st.roll_no }}</td>
+              <td>{{ st.full_name }}</td>
+              <td>
+                <input type="checkbox" name="present" value="{{ st.student_id }}"
+                       {% if st.student_id in already_marked %}checked{% endif %}>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
       <button class="btn btn-success">Save Attendance</button>
     </form>
   </div>

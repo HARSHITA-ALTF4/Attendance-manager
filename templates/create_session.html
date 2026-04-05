@@ -42,26 +42,28 @@
     <p class="muted">Your latest created lectures.</p>
 
     {% if recent and recent|length > 0 %}
-      <table class="mt-2">
-        <thead>
-          <tr>
-            <th style="width:70px;">ID</th>
-            <th>Subject</th>
-            <th style="width:140px;">Date</th>
-            <th style="width:120px;">Time</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for row in recent %}
+      <div class="table-responsive">
+        <table class="mt-2">
+          <thead>
             <tr>
-              <td>{{ row.session_id }}</td>
-              <td>{{ row.subject_name }}</td>
-              <td>{{ row.session_date }}</td>
-              <td>{{ row.start_time if row.start_time else "-" }}</td>
+              <th style="width:70px;">ID</th>
+              <th>Subject</th>
+              <th style="width:140px;">Date</th>
+              <th style="width:120px;">Time</th>
             </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {% for row in recent %}
+              <tr>
+                <td>{{ row.session_id }}</td>
+                <td>{{ row.subject_name }}</td>
+                <td>{{ row.session_date }}</td>
+                <td>{{ row.start_time if row.start_time else "-" }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     {% else %}
       <p class="muted" style="margin:0;">No sessions yet. Create your first one.</p>
     {% endif %}

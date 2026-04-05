@@ -32,24 +32,26 @@
     <div class="pro-card">
       <h5 class="mb-3 fw-bold">Students List</h5>
 
-      <table class="table table-sm align-middle">
-        <thead class="table-light">
-          <tr>
-            <th>Roll</th>
-            <th>Name</th>
-            <th>Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for s in students %}
-          <tr>
-            <td>{{ s.roll_no }}</td>
-            <td>{{ s.full_name }}</td>
-            <td>{{ s.email or "-" }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table class="table table-sm align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Roll</th>
+              <th>Name</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for s in students %}
+            <tr>
+              <td>{{ s.roll_no }}</td>
+              <td>{{ s.full_name }}</td>
+              <td>{{ s.email or "-" }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 

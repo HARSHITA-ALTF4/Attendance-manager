@@ -232,6 +232,17 @@
       flex-wrap: wrap;
       background: rgba(255,255,255,.65);
     }
+
+    @media (max-width: 576px){
+      .appbar{
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero h1{
+        font-size: 32px;
+      }
+    }
   </style>
 </head>
 
@@ -307,8 +318,6 @@
               Manage Grades
               <small>View and enter student grades</small>
             </div>
-            <span class="arrow">›</span>
-          </a>
             <span class="arrow">›</span>
           </a>
 

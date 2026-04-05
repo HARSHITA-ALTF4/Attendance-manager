@@ -25,17 +25,19 @@
 <div class="card">
   <div class="card-body">
     <h6>Subject: {{ chosen_subject.subject_code }} - {{ chosen_subject.subject_name }}</h6>
-    <table class="table table-sm table-striped mt-3">
-      <thead><tr><th>Roll</th><th>Name</th><th>%</th></tr></thead>
-      <tbody>
-        {% for r in results %}
-          <tr><td>{{ r.roll_no }}</td><td>{{ r.full_name }}</td><td>{{ r.attendance_percent }}</td></tr>
-        {% endfor %}
-        {% if results|length == 0 %}
-          <tr><td colspan="3" class="text-muted">No defaulters found (or no attendance marked yet).</td></tr>
-        {% endif %}
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table table-sm table-striped mt-3">
+        <thead><tr><th>Roll</th><th>Name</th><th>%</th></tr></thead>
+        <tbody>
+          {% for r in results %}
+            <tr><td>{{ r.roll_no }}</td><td>{{ r.full_name }}</td><td>{{ r.attendance_percent }}</td></tr>
+          {% endfor %}
+          {% if results|length == 0 %}
+            <tr><td colspan="3" class="text-muted">No defaulters found (or no attendance marked yet).</td></tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 {% endif %}

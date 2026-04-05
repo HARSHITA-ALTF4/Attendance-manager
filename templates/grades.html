@@ -6,7 +6,7 @@
 <div class="card p-4 shadow-sm border-0" style="border-radius:12px; background: rgba(255,255,255,0.85); backdrop-filter: blur(10px);">
     <h2 class="mb-4" style="font-weight:800; color:#1e293b;">Grades Management</h2>
 
-    <form method="GET" action="{{ url_for('grades') }}" class="mb-4 d-flex gap-2">
+    <form method="GET" action="{{ url_for('grades') }}" class="mb-4 d-flex flex-column flex-md-row gap-2">
         <select name="subject_id" class="form-select" style="max-width: 400px;">
             <option value="">-- Select Subject --</option>
             {% for sub in subjects %}
@@ -16,7 +16,7 @@
                 </option>
             {% endfor %}
         </select>
-        <button type="submit" class="btn btn-primary px-4 fw-bold">Load Students</button>
+        <button type="submit" class="btn btn-primary px-4 fw-bold w-100">Load Students</button>
     </form>
 
     {% if selected_subject_id %}
